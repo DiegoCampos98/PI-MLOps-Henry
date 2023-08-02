@@ -3,7 +3,7 @@ import pandas as pd
 import ast
 from fastapi import FastAPI
 
-app = FastAPI()
+app = FastAPI(title = "Proyecto MLOps")
 
 rows = []
 with open("steam_games.json") as f:
