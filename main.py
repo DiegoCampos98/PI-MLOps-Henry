@@ -18,7 +18,7 @@ df['anio'] = pd.to_numeric(df['anio'], errors='coerce')
 @app.get('/genero/{año}')
 def genero(año: str):
     # Filtrar el DataFrame por el año proporcionado
-    df_filtered = df[df['año'] == int(anio)]
+    df_filtered = df[df['año'] == int(año)]
 
     # Unir todas las listas de géneros en una sola lista y eliminar valores nulos
     all_genres = [genre for sublist in df_filtered['genres'].dropna() for genre in sublist]
