@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import ast
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
@@ -23,6 +23,31 @@ df['anio'] = pd.to_numeric(df['anio'], errors='coerce')
 df_filtrado = pd.read_csv(r'steam_games_model.csv')
   # Supongamos que tienes un DataFrame llamado df_filtrado con las columnas price, early_access, sentiment, metascore, year, month y day
 
+
+    # Supongamos que tienes un DataFrame llamado df_filtrado con las columnas price, early_access, sentiment, metascore, year, month y day
+
+    # Seleccionar las variables independientes (predictores) y la variable dependiente (precio)
+y = df_filtrado['price']
+X = df_filtrado.drop(columns=['price'])
+
+
+    # Dividir el conjunto de datos en datos de entrenamiento y datos de prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Crear características polinómicas de grado 2
+poly = PolynomialFeatures(degree=2)
+X_train_poly = poly.fit_transform(X_train)
+X_test_poly = poly.transform(X_test)
+
+    # Crear y entrenar el modelo de regresión lineal con características polinómicas
+poly_regression_model = LinearRegression()
+poly_regression_model.fit(X_train_poly, y_train)
+
+    # Realizar predicciones en el conjunto de prueba
+y_pred_poly = poly_regression_model.predict(X_test_poly)
+
+mse_poly = mean_squared_error(y_test, y_pred_poly)
+rmse_poly = (mse_poly ** 0.5)
 
 @app.get('/genero/{anio}')
 def genero(anio: str):
@@ -78,16 +103,21 @@ def earlyacces(Año: str):
 
     return cantidad_early_access
 
-
 @app.get('/sentiment/{año}')
 def sentiment(Año: str):
     # Filtrar el DataFrame por el año proporcionado
-    df_filtered = df[df['anio'] == int(Año) ]
+    df_filtered = df[df['anio'] == int(Año)]
 
     # Contar la cantidad de registros con cada análisis de sentimiento para el año
     sentiment_counts = df_filtered['sentiment'].value_counts().to_dict()
 
-    return sentiment_counts
+    # Modificar el diccionario para quitar "user reviews"
+    modified_sentiment_counts = {}
+    for clave, valor in sentiment_counts.items():
+        if 'user reviews' not in clave:
+            modified_sentiment_counts[clave] = valor
+
+    return modified_sentiment_counts
 
 @app.get('/metascore/{año}')
 def metascore(Año: str):
@@ -102,38 +132,15 @@ def metascore(Año: str):
 
     return top_5_juegos
 
-@app.get('/prediccion/{year}/{genero}/{metascore}')
+@app.post('/prediccion/{year}/{genero}/{metascore}')
 def prediccion(year, genero, metascore):
 
 
-    # Supongamos que tienes un DataFrame llamado df_filtrado con las columnas price, early_access, sentiment, metascore, year, month y day
-
-    # Seleccionar las variables independientes (predictores) y la variable dependiente (precio)
-    y = df_filtrado['price']
-    X = df_filtrado.drop(columns=['price'])
-
-
-    # Dividir el conjunto de datos en datos de entrenamiento y datos de prueba
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    # Crear características polinómicas de grado 2
-    poly = PolynomialFeatures(degree=2)
-    X_train_poly = poly.fit_transform(X_train)
-    X_test_poly = poly.transform(X_test)
-
-    # Crear y entrenar el modelo de regresión lineal con características polinómicas
-    poly_regression_model = LinearRegression()
-    poly_regression_model.fit(X_train_poly, y_train)
-
-    # Realizar predicciones en el conjunto de prueba
-    y_pred_poly = poly_regression_model.predict(X_test_poly)
-
-    mse_poly = mean_squared_error(y_test, y_pred_poly)
-    rmse_poly = (mse_poly ** 0.5)
-
 
     available_genres = ['Indie', 'Early Access', 'Massively Multiplayer', 'Strategy', 'RPG', 'Action', 'Casual', 'Free to Play', 'Racing', 'Adventure', 'Simulation', 'Sports']
-    assert genero in available_genres, f"El género ingresado '{genero}' no es válido. Los géneros válidos son: {', '.join(available_genres)}"
+    if genero not in available_genres:
+        raise HTTPException(status_code=400, detail=f"El género ingresado '{genero}' no es válido. Los géneros válidos son: {', '.join(available_genres)}")
+
 
     # Resto del código para realizar la predicción...
 
@@ -173,5 +180,4 @@ def prediccion(year, genero, metascore):
     y_pred_new = poly_regression_model.predict(X_new_poly)[0]
 
     return f"Precio: {y_pred_new:.2f}  RMSE del Modelo: {rmse_poly:.2f}"
-
 
