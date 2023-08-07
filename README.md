@@ -24,8 +24,8 @@ Este proyecto es una oportunidad para explorar en profundidad el proceso de desa
 ## `API`
 
 A continuación estará el enlace a la respectiva api y su documentación: 
-+ https://mlops-render.onrender.com/
-+ https://mlops-render.onrender.com/docs
++ https://pi-mlops-henry-xoes.onrender.com/
++ https://pi-mlops-henry-xoes.onrender.com/docs
 
 Además de un video explicativo acerca de esta : 
 
