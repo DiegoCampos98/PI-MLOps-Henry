@@ -57,5 +57,5 @@ https://drive.google.com/drive/folders/1HqBG2-sUkz_R3h1dZU5F2uAzpRn7BSpj
 
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/MatyTrova/PI-MLOps/main/imgs/henry.jpg"  alt="MLOps">
+<img src="imgs/lgo.webp"  alt="MLOps">
 </p>
