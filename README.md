@@ -29,19 +29,17 @@ A continuación estará el enlace a la respectiva api y su documentación:
 
 Además de un video explicativo acerca de esta : 
 
-+ https://drive.google.com/drive/folders/1KljLVg5bE5cXME1Ik1DDAD-gUdgaO-pK?usp=sharing
++ https://drive.google.com/drive/folders/17l3o45iAvxYcYcdUgQEc4Nnf3CnoIsli?usp=sharing
 
 ## `Estructura del repositorio`
 
 + README.md: Archivo principal con información detallada del proyecto.
 
-+ modelo.ipynb: Contiene todo el desarrollo del modelo de machine learning para la recomendación de películas. Se adjunta con "df_modelo.csv"
++ ETL.ipynb: Contiene el el código para realizar la extracción, transformación y carga de datos para su posterior implementación para la api. Se adjunta con    "steam_games_ETL.csv".
 
-+ ETL.ipynb: Contiene el el código para realizar la extracción, transformación y carga de datos para su posterior implementación para la api. Se adjunta con    "df_streaming.csv"
++ EDAyModelo.ipynb: Contiene el código para el análisis exploratorio de datos junto al modelo y su respectiva funcion para aplicarlal en la api. Se adjunta con "steam_games_model.csv".
 
-+ EDA.ipynb: Contiene el código para el análisis exploratorio de datos, y las conclusiones de ésta.
-
-+ Consultas.ipynb: Contiene las funciones para realizar consultas de búsqueda en el set de datos, además del modelo de recomendación.
++ Consultas.ipynb: Contiene las funciones para realizar consultas de búsqueda en el set de datos. Se adjunta con "steam_games.JSON".
 
 + main.py: Contiene todo el código la formación y correcto funcionamiento de la API.
 
