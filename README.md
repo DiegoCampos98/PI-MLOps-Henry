@@ -11,9 +11,9 @@
 --- 
 ## `Descripción`
 
-Este proyecto tiene como objetivo desarrollar el rol de `Data Scientist`, aplicando técnicas de extracción, transformación y carga de datos (`ETL`), análisis exploratorio de datos (`EDA`) y creación de un sistema de recomendación basado en machine learning.
+Este proyecto tiene como objetivo desarrollar el rol de `Data Scientist`, aplicando técnicas de extracción, transformación y carga de datos (`ETL`), análisis exploratorio de datos (`EDA`) y creación de un sistema de prediccion basado en machine learning.
 
-Para ello, se utilizará un set de datos de distinros videojuegos, con el fin de explorar y entender los patrones y tendencias en el comportamiento de los usuarios, y así generar recomendaciones personalizadas.
+Para ello, se utilizará un set de datos de distinros videojuegos, con el fin de explorar y entender los patrones y tendencias en el comportamiento de los usuarios, y así generar predicciones de los precios.
 
 El proyecto abarca desde la extracción de los datos, hasta la implementación del sistema de recomendación, con el objetivo de brindar una solución completa y funcional. Asimismo, se documentará cada etapa del proceso y se explicarán las decisiones tomadas en la implementación del modelo de `machine learning`.
 
